@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Deep Learning Roadmap — Clean Single File</title>
+  <meta name="description" content="15-month Deep Learning roadmap with books, papers per phase, and Genius Tests. Single-file, dark theme, offline-ready."/>
+  <style>
+    :root{
+      --bg:#07101a; --panel:#0b1620; --muted:#9fb5c9; --accent:#66c2ff; --card:#071722; --card-2:#0d1b26;
+      --glass: rgba(255,255,255,0.02); --radius:12px; --maxw:1200px;
+      --text:#dbeefc;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;color:var(--text);background:linear-gradient(180deg,var(--bg),#05101a);-webkit-font-smoothing:antialiased}
+    .container{max-width:var(--maxw);margin:18px auto;display:flex;gap:18px;padding:18px}
+    nav{width:320px;background:linear-gradient(180deg,var(--panel),#07131a);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.02)}
+    header-brand{display:block}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#2d7be6)}
+    h1{margin:0;font-size:18px}
+    .muted{color:var(--muted);font-size:13px;margin-top:4px}
+    .navlist{margin-top:18px;padding:0;list-style:none}
+    .navlist a{display:block;padding:10px;border-radius:8px;color:var(--text);text-decoration:none;border:1px solid transparent}
+    .navlist a:hover{background:rgba(255,255,255,0.01)}
+    .navlist a.active{background:linear-gradient(90deg,rgba(102,194,255,0.06),rgba(102,194,255,0.03));border-color:rgba(102,194,255,0.04)}
+    .controls{display:flex;gap:8px;margin-top:16px}
+    .btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg,#0e2a44,#052033);color:var(--text);cursor:pointer}
+    main{flex:1;min-height:60vh}
+    .page{display:none}
+    .page.open{display:block}
+    .phase-header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:14px}
+    .card{background:linear-gradient(180deg,var(--card),var(--card-2));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .books ul,.papers ul{list-style:none;padding:0;margin:8px 0}
+    .books li,.papers li{padding:8px;border-radius:8px;margin-bottom:6px;background:rgba(255,255,255,0.01)}
+    .papers li a{color:var(--accent);text-decoration:underline}
+    .mile{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.01);margin-bottom:8px}
+    .check{width:20px;height:20px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);cursor:pointer}
+    .editable{cursor:text}
+    .note{color:var(--muted);font-size:13px;margin-top:8px}
+    footer{margin-top:12px;color:var(--muted);font-size:13px}
+    @media (max-width:980px){.container{flex-direction:column;padding:12px}nav{width:100%}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container" role="application" aria-label="Deep Learning Roadmap">
+    <nav aria-label="Main navigation">
+      <div class="brand" role="banner" aria-hidden="false" style="align-items:flex-start">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Deep Learning Roadmap</h1>
+          <div class="muted">15-month deep study plan</div>
+        </div>
+      </div>
+
+      <nav class="navlist" aria-label="Phases navigation" id="nav">
+        <a class="active" href="#" data-page="overview">Overview</a>
+        <a href="#" data-page="phase0">Phase 0 — Foundations</a>
+        <a href="#" data-page="phase1">Phase 1 — ML Fundamentals</a>
+        <a href="#" data-page="phase2">Phase 2 — Practical ML</a>
+        <a href="#" data-page="phase3">Phase 3 — Deep Learning Core</a>
+        <a href="#" data-page="phase4">Phase 4 — Advanced Systems</a>
+        <a href="#" data-page="phase5">Phase 5 — Specialized</a>
+        <a href="#" data-page="milestones">Genius Milestones</a>
+        <a href="#" data-page="papers">All Papers Index</a>
+      </nav>
+
+      <div class="controls" role="region" aria-label="Controls">
+        <button id="downloadBtn" class="btn" title="Download full HTML">Download HTML</button>
+        <button id="printBtn" class="btn" title="Print page">Print</button>
+      </div>
+
+      <footer>
+        <div class="note">Tip: double-click book/paper titles to edit. Milestone progress is saved locally. Use keyboard 1..6 (phases) and M (milestones).</div>
+      </footer>
+    </nav>
+
+    <main id="main" tabindex="0">
+      <!-- Overview -->
+      <section id="overview" class="page open" aria-labelledby="overview-heading">
+        <div class="phase-header">
+          <div>
+            <h2 id="overview-heading">Overview</h2>
+            <div class="muted">This roadmap combines books, exhaustive paper lists per phase, and "Genius Tests" to push you to researcher-level skills.</div>
+          </div>
+          <div class="muted">Total: ~15 months • Pace: 2–3 hrs/day</div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h4>Phases at a glance</h4>
+          <p class="muted">
+            <ol>
+                <li>Phase 0: Foundations (math & Python).</li>
+                <li> Phase 1: ML Fundamentals.</li>
+                <li> Phase 2: Practical ML.</li>
+                <li> Phase 3: Deep Learning Core.</li>
+                <li> Phase 4: Advanced Systems.</li>
+                <li> Phase 5: Specialized (CV/Agents).</li>
+            </ol>
+          </p>
+        </div>
+      </section>
+
+      <!-- Phase 0 -->
+      <section id="phase0" class="page" aria-labelledby="phase0-heading">
+        <div class="phase-header">
+          <div>
+            <h2 id="phase0-heading">Phase 0 — Foundations (Months 1–2)</h2>
+            <div class="muted">Math, optimization, Python tooling</div>
+          </div>
+          <div><button class="btn" onclick="downloadPhase('phase0')">Download Phase</button></div>
+        </div>
+
+        <div class="grid" role="region" aria-label="Phase 0 content">
+          <div>
+            <div class="card books" id="phase0-books">
+              <h3>Books</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Mathematics for Machine Learning — Deisenroth, Faisal, Ong</li>
+                <li class="editable" ondblclick="edit(this)">Analysis for Applied Mathematics — Ward Cheney</li>
+                <li class="editable" ondblclick="edit(this)">Python basics: NumPy, Pandas, Matplotlib practice</li>
+              </ul>
+            </div>
+
+            <div class="card papers" id="phase0-papers" style="margin-top:12px">
+              <h3>Foundational Papers & readings</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)"><strong>Rosenblatt (1958)</strong> — Perceptron</li>
+                <li class="editable" ondblclick="edit(this)"><strong>Rumelhart, Hinton & Williams (1986)</strong> — Backpropagation</li>
+                <li class="editable" ondblclick="edit(this)"><strong>Boyd & Vandenberghe</strong> — Convex Optimization (selected chapters)</li>
+                <li class="editable" ondblclick="edit(this)"><strong>Magnus & Neudecker</strong> — Matrix Differential Calculus (excerpts)</li>
+                <li class="editable" ondblclick="edit(this)"><strong>Armijo (1966)</strong> — Line search / Armijo rule</li>
+              </ul>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h3>Genius Test — Phase 0</h3>
+              <ol class="muted">
+                <li>Derive gradients for multivariate linear regression and implement gradient descent with NumPy.</li>
+                <li>Write a Jupyter Notebook showing derivations and numerical checks.</li>
+                <li>Timebox: 7–10 days. Deliverable: Notebook + short write-up.</li>
+              </ol>
+            </div>
+          </div>
+
+          <aside>
+            <div class="card">
+              <h4>Skills to master</h4>
+              <ul class="muted"><li>Linear algebra: SVD, eigenvalues</li><li>Multivariable calculus & derivatives</li><li>Probability basics & distributions</li></ul>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h4>Suggested exercises</h4>
+              <ul class="muted"><li>Implement Gram-Schmidt and QR decomposition</li><li>Visualize PCA on a toy dataset</li></ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Phase 1 -->
+      <section id="phase1" class="page" aria-labelledby="phase1-heading">
+        <div class="phase-header">
+          <div>
+            <h2 id="phase1-heading">Phase 1 — ML Fundamentals (Months 3–4)</h2>
+            <div class="muted">Core supervised & unsupervised learning</div>
+          </div>
+          <div><button class="btn" onclick="downloadPhase('phase1')">Download Phase</button></div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <div class="card books">
+              <h3>Books</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Introduction to Machine Learning — Ethem Alpaydin</li>
+                <li class="editable" ondblclick="edit(this)">Machine Learning — Tom M. Mitchell</li>
+              </ul>
+            </div>
+
+            <div class="card papers" style="margin-top:12px">
+              <h3>Key Papers — Fundamentals</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Cortes & Vapnik (1995) — Support-Vector Networks (SVM)</li>
+                <li class="editable" ondblclick="edit(this)">Breiman (2001) — Random Forests</li>
+                <li class="editable" ondblclick="edit(this)">Friedman (2001) — Gradient Boosting Machine</li>
+                <li class="editable" ondblclick="edit(this)">Domingos (2012) — A Few Useful Things</li>
+                <li class="editable" ondblclick="edit(this)">Dempster, Laird & Rubin — EM algorithm</li>
+              </ul>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h3>Genius Test — Phase 1</h3>
+              <ol class="muted">
+                <li>Implement SVM (SMO or gradient-based) from scratch and compare with scikit-learn.</li>
+                <li>Perform bias-variance analysis on a toy dataset; write a report.</li>
+                <li>Timebox: 10–14 days. Deliverable: Notebook + analysis.</li>
+              </ol>
+            </div>
+          </div>
+
+          <aside>
+            <div class="card">
+              <h4>Skills to master</h4>
+              <ul class="muted"><li>Model evaluation & cross-validation</li><li>Feature engineering & scaling</li><li>Regularization techniques</li></ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Phase 2 -->
+      <section id="phase2" class="page" aria-labelledby="phase2-heading">
+        <div class="phase-header">
+          <div>
+            <h2 id="phase2-heading">Phase 2 — Practical ML (Months 5–6)</h2>
+            <div class="muted">Pipelines, ensembles, competitions</div>
+          </div>
+          <div><button class="btn" onclick="downloadPhase('phase2')">Download Phase</button></div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <div class="card books">
+              <h3>Books</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow — Aurélien Géron</li>
+                <li class="editable" ondblclick="edit(this)">Data Analysis & Machine Learning with Kaggle — Konrad Banachewicz & Luca Massaron</li>
+              </ul>
+            </div>
+
+            <div class="card papers" style="margin-top:12px">
+              <h3>Papers — Practical ML & Ensembles</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Breiman (2001) — Random Forests</li>
+                <li class="editable" ondblclick="edit(this)">Chen & Guestrin (2016) — XGBoost</li>
+                <li class="editable" ondblclick="edit(this)">Ke et al. (2017) — LightGBM</li>
+                <li class="editable" ondblclick="edit(this)">Prokhorenkova et al. (2018) — CatBoost</li>
+                <li class="editable" ondblclick="edit(this)">Google (2019) — The ML Test Score</li>
+              </ul>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h3>Genius Test — Phase 2</h3>
+              <ol class="muted">
+                <li>Enter a Kaggle competition and reach top 25% using feature engineering + ensembles.</li>
+                <li>Deliverable: public notebook + short report.</li>
+                <li>Timebox: 3 weeks.</li>
+              </ol>
+            </div>
+          </div>
+
+          <aside>
+            <div class="card">
+              <h4>Skills to master</h4>
+              <ul class="muted"><li>Feature engineering & imputation</li><li>Model stacking & blending</li><li>End-to-end pipelines</li></ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Phase 3 -->
+      <section id="phase3" class="page" aria-labelledby="phase3-heading">
+        <div class="phase-header">
+          <div>
+            <h2 id="phase3-heading">Phase 3 — Deep Learning Core (Months 7–9)</h2>
+            <div class="muted">Neural nets, CNNs, RNNs, Transformers (Goodfellow included)</div>
+          </div>
+          <div><button class="btn" onclick="downloadPhase('phase3')">Download Phase</button></div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <div class="card books">
+              <h3>Books</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Grokking Deep Learning — Andrew W. Trask</li>
+                <li class="editable" ondblclick="edit(this)">Deep Learning — Ian Goodfellow, Yoshua Bengio, Aaron Courville</li>
+                <li class="editable" ondblclick="edit(this)">Deep Learning with Python — François Chollet</li>
+                <li class="editable" ondblclick="edit(this)">Deep Learning for Coders (fastai) — Jeremy Howard & Sylvain Gugger</li>
+              </ul>
+            </div>
+
+            <div class="card papers" style="margin-top:12px">
+              <h3>Deep Learning — Classic → Modern</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Rumelhart et al. (1986) — Backpropagation</li>
+                <li class="editable" ondblclick="edit(this)">LeCun et al. (1998) — Gradient-Based Learning (CNN)</li>
+                <li class="editable" ondblclick="edit(this)">Krizhevsky et al. (2012) — AlexNet</li>
+                <li class="editable" ondblclick="edit(this)">Simonyan & Zisserman (2014) — VGG</li>
+                <li class="editable" ondblclick="edit(this)">He et al. (2015) — ResNet</li>
+                <li class="editable" ondblclick="edit(this)">Srivastava et al. (2014) — Dropout</li>
+                <li class="editable" ondblclick="edit(this)">Ioffe & Szegedy (2015) — BatchNorm</li>
+                <li class="editable" ondblclick="edit(this)">Kingma & Ba (2014) — Adam optimizer</li>
+                <li class="editable" ondblclick="edit(this)">Vaswani et al. (2017) — Attention Is All You Need (Transformer)</li>
+                <li class="editable" ondblclick="edit(this)">Devlin et al. (2019) — BERT</li>
+              </ul>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h3>Genius Test — Phase 3</h3>
+              <ol class="muted">
+                <li>Implement a CNN from scratch (NumPy). Train on CIFAR-10 and compare with baseline.</li>
+                <li>Implement ResNet block; show improvement over plain CNN.</li>
+                <li>Timebox: 14 days. Deliverable: Notebooks + logs.</li>
+              </ol>
+            </div>
+          </div>
+
+          <aside>
+            <div class="card"><h4>Skills to master</h4>
+              <ul class="muted"><li>Backpropagation & autograd intuition</li><li>Convolutional architectures & pooling</li><li>Transformer basics & attention</li></ul>
+            </div>
+            <div class="card" style="margin-top:12px"><h4>Extras</h4><p class="muted">Start following NeurIPS/CVPR/ICML proceedings; reproduce one classic experiment.</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Phase 4 -->
+      <section id="phase4" class="page" aria-labelledby="phase4-heading">
+        <div class="phase-header">
+          <div>
+            <h2 id="phase4-heading">Phase 4 — Advanced Systems (Months 10–12)</h2>
+            <div class="muted">Scaling, MLOps, model compression</div>
+          </div>
+          <div><button class="btn" onclick="downloadPhase('phase4')">Download Phase</button></div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <div class="card books">
+              <h3>Books</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Machine Learning with PyTorch & Scikit-Learn — Sebastian Raschka et al.</li>
+                <li class="editable" ondblclick="edit(this)">Machine Learning Design Patterns — Valliappa Lakshmanan et al.</li>
+                <li class="editable" ondblclick="edit(this)">Designing Machine Learning Systems — Chip Huyen</li>
+              </ul>
+            </div>
+
+            <div class="card papers" style="margin-top:12px">
+              <h3>Papers — Systems & Scaling</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Hinton et al. (2015) — Knowledge Distillation</li>
+                <li class="editable" ondblclick="edit(this)">Tan & Le (2019) — EfficientNet</li>
+                <li class="editable" ondblclick="edit(this)">Kaplan et al. (2020) — Scaling Laws</li>
+                <li class="editable" ondblclick="edit(this)">Google (2019) — The ML Test Score</li>
+                <li class="editable" ondblclick="edit(this)">Papers on quantization, pruning, ONNX, model serving</li>
+              </ul>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h3>Genius Test — Phase 4</h3>
+              <ol class="muted">
+                <li>Distill a large model into a smaller one; measure accuracy vs latency tradeoff.</li>
+                <li>Deploy a model API with CI/CD, basic monitoring, and versioning.</li>
+                <li>Timebox: 2–3 weeks. Deliverable: deployed endpoint + documentation.</li>
+              </ol>
+            </div>
+          </div>
+
+          <aside>
+            <div class="card"><h4>Skills to master</h4>
+              <ul class="muted"><li>Model compression & quantization</li><li>Serving, monitoring, and model versioning</li><li>Cost-aware deployment</li></ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Phase 5 -->
+      <section id="phase5" class="page" aria-labelledby="phase5-heading">
+        <div class="phase-header">
+          <div>
+            <h2 id="phase5-heading">Phase 5 — Specialized (Months 13–15)</h2>
+            <div class="muted">Computer vision, RL/agents, generative models</div>
+          </div>
+          <div><button class="btn" onclick="downloadPhase('phase5')">Download Phase</button></div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <div class="card books">
+              <h3>Books</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Computer Vision: A Modern Approach — Forsyth & Ponce</li>
+                <li class="editable" ondblclick="edit(this)">Agents in the Long Game of AI — Marjorie McShane et al.</li>
+              </ul>
+            </div>
+
+            <div class="card papers" style="margin-top:12px">
+              <h3>Papers — CV, RL & Generative</h3>
+              <ul>
+                <li class="editable" ondblclick="edit(this)">Mnih et al. (2013) — DQN (Playing Atari with Deep RL)</li>
+                <li class="editable" ondblclick="edit(this)">Silver et al. (2016,2017) — AlphaGo / AlphaZero</li>
+                <li class="editable" ondblclick="edit(this)">Redmon et al. (2016) — YOLO</li>
+                <li class="editable" ondblclick="edit(this)">He et al. (2017) — Mask R-CNN</li>
+                <li class="editable" ondblclick="edit(this)">Dosovitskiy et al. (2020) — Vision Transformer (ViT)</li>
+                <li class="editable" ondblclick="edit(this)">DDPM / DDIM / Imagen / Stable Diffusion (diffusion models)</li>
+                <li class="editable" ondblclick="edit(this)">PPO / A3C / SAC — foundational RL papers</li>
+              </ul>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h3>Genius Test — Phase 5</h3>
+              <ol class="muted">
+                <li>Pick a recent CV or RL paper. Reproduce main experiment; open-source code.</li>
+                <li>Propose a small improvement and run an ablation study.</li>
+                <li>Timebox: 3–4 weeks. Deliverable: code + short paper-style report.</li>
+              </ol>
+            </div>
+          </div>
+
+          <aside>
+            <div class="card"><h4>Skills to master</h4>
+              <ul class="muted"><li>Reinforcement learning algorithms</li><li>Object detection & segmentation</li><li>Generative models (GANs, diffusion)</li></ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Milestones -->
+      <section id="milestones" class="page" aria-labelledby="milestones-heading">
+        <div class="phase-header">
+          <div>
+            <h2 id="milestones-heading">Genius Milestones</h2>
+            <div class="muted">Checkpoints to prove your skills — saved locally</div>
+          </div>
+          <div><button class="btn" onclick="resetMilestones()">Reset Progress</button></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <div class="mile"><div><strong>Milestone 1</strong>: Implement linear models, logistic regression, SVM from scratch; Notebook + report.</div><input class="check" type="checkbox" data-id="m1" aria-label="Milestone 1"></div>
+          <div class="mile"><div><strong>Milestone 2</strong>: Implement decision trees & random forests from scratch; compare with sklearn.</div><input class="check" type="checkbox" data-id="m2" aria-label="Milestone 2"></div>
+          <div class="mile"><div><strong>Milestone 3</strong>: Build & train a NumPy CNN on CIFAR-10; reproduce baseline accuracy.</div><input class="check" type="checkbox" data-id="m3" aria-label="Milestone 3"></div>
+          <div class="mile"><div><strong>Milestone 4</strong>: Reproduce a ResNet/Transformer paper and open-source implementation.</div><input class="check" type="checkbox" data-id="m4" aria-label="Milestone 4"></div>
+          <div class="mile"><div><strong>Milestone 5</strong>: Paper project — extend a paper and publish results.</div><input class="check" type="checkbox" data-id="m5" aria-label="Milestone 5"></div>
+          <div class="mile"><div><strong>Milestone 6</strong>: Deploy an end-to-end ML service with CI/CD, monitoring, and versioning.</div><input class="check" type="checkbox" data-id="m6" aria-label="Milestone 6"></div>
+        </div>
+      </section>
+
+      <!-- Papers Index -->
+      <section id="papers" class="page" aria-labelledby="papers-heading">
+        <div class="phase-header">
+          <div><h2 id="papers-heading">All Papers Index</h2><div class="muted">Comprehensive list (classic → modern)</div></div>
+          <div></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <div class="muted" style="line-height:1.5">
+            <strong>Foundations & Math</strong>: Rosenblatt (1958), Rumelhart et al. (1986), Boyd & Vandenberghe (Convex Optimization).
+            <br><br>
+            <strong>ML Classics</strong>: Cortes & Vapnik (SVM), Breiman (Random Forests), Friedman (GBM), Domingos (A Few Useful Things).
+            <br><br>
+            <strong>Deep Learning Classics</strong>: LeCun et al. (1998), Krizhevsky et al. (2012), Simonyan & Zisserman (VGG), He et al. (ResNet), Vaswani et al. (Transformers), Devlin et al. (BERT).
+            <br><br>
+            <strong>Systems & Scaling</strong>: Hinton et al. (Distillation), Kaplan et al. (Scaling Laws), Tan & Le (EfficientNet), Google ML Test Score.
+            <br><br>
+            <strong>Vision & RL</strong>: Mnih et al. (DQN), Silver et al. (AlphaGo/AlphaZero), YOLO, Mask R-CNN, ViT, Diffusion models.
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+<script>
+/* Wait for DOM */
+document.addEventListener('DOMContentLoaded', () => {
+  // Navigation SPA
+  const navLinks = document.querySelectorAll('[data-page]');
+  const pages = document.querySelectorAll('.page');
+  function openPage(id) {
+    pages.forEach(p => p.classList.remove('open'));
+    const el = document.getElementById(id);
+    if(el) el.classList.add('open');
+    navLinks.forEach(a => a.classList.toggle('active', a.dataset.page === id));
+    // focus main for keyboard accessibility
+    document.getElementById('main').focus();
+    window.scrollTo(0,0);
+  }
+  navLinks.forEach(a => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    openPage(a.dataset.page);
+  }));
+  openPage('overview');
+
+  // Download full HTML
+  document.getElementById('downloadBtn').addEventListener('click', () => {
+    const html = '<!doctype html>' + document.documentElement.outerHTML;
+    const blob = new Blob([html], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'deeplearning_roadmap.html';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  });
+
+  // Print
+  document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+  // Milestones persistence
+  const checks = document.querySelectorAll('.check');
+  checks.forEach(ch => {
+    const id = ch.dataset.id;
+    const saved = localStorage.getItem('mile_' + id);
+    if(saved === 'true') ch.checked = true;
+    ch.addEventListener('change', () => {
+      localStorage.setItem('mile_' + id, ch.checked ? 'true' : 'false');
+    });
+  });
+  window.resetMilestones = function() {
+    if(!confirm('Reset milestone progress?')) return;
+    checks.forEach(ch => { ch.checked = false; localStorage.removeItem('mile_' + ch.dataset.id); });
+  };
+
+  // Download single phase
+  window.downloadPhase = function(phaseId) {
+    const node = document.getElementById(phaseId);
+    if(!node) return alert('Phase not found');
+    // create minimal HTML for single phase export
+    const head = document.head.cloneNode(true);
+    const doc = document.implementation.createHTMLDocument('export');
+    doc.head.innerHTML = head.innerHTML;
+    doc.body.appendChild(node.cloneNode(true));
+    const html = '<!doctype html>\n' + doc.documentElement.outerHTML;
+    const blob = new Blob([html], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = phaseId + '.html';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  };
+
+  // Inline edit (double-click)
+  window.edit = function(el) {
+    const current = el.textContent.trim();
+    const res = prompt('Edit entry (paste "Title — URL" or change text):', current);
+    if(res === null) return;
+    // detect link-like text
+    const hasLink = /https?:\/\//i.test(res) || /arxiv\.org|\.pdf|doi\./i.test(res);
+    if(hasLink){
+      // attempt to extract url and title
+      const parts = res.split(/\s+/);
+      let url = parts.find(p => /https?:\/\//i.test(p) || /arxiv\.org|\.pdf|doi\./i.test(p));
+      if(!url) url = res;
+      const title = res.replace(url, '').trim() || url;
+      el.innerHTML = `<a class="paper-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a>`;
+    } else {
+      el.textContent = res;
+    }
+  };
+
+  function escapeHtml(s){
+    return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+  }
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if(document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) return;
+    if(e.key === '1') openPage('phase0');
+    if(e.key === '2') openPage('phase1');
+    if(e.key === '3') openPage('phase2');
+    if(e.key === '4') openPage('phase3');
+    if(e.key === '5') openPage('phase4');
+    if(e.key === '6') openPage('phase5');
+    if(e.key.toLowerCase() === 'm') openPage('milestones');
+  });
+
+  // Accessibility: allow Enter to open nav links when focused
+  document.querySelectorAll('.navlist a').forEach(a => {
+    a.addEventListener('keydown', (e) => { if(e.key === 'Enter') a.click(); });
+  });
+});
+</script>
+</body>
+</html>
